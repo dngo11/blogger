@@ -1,0 +1,36 @@
+<!-- how to pass article id from controller to views?  create a @variable so that it's accessible to both controller and views; an instance variable -->
+
+<h1>
+	<%= @article.title %>
+
+</h1>
+
+<p><%= @article.body %></p>
+
+</br>
+
+Tags:
+<% @article.tags.each do |tag| %>
+	<%= link_to tag.name, tag_path(tag)%>
+<% end %>
+
+<%= render partial: 'comments/form' %>
+
+
+<h3>Comments <%= @article.comments.size %></h3>
+<%= render partial: 'articles/comments' %>
+
+
+<li>	
+	<%= link_to "<< Return to All Articles", articles_path %>
+</li>
+
+<li>
+	<%= link_to "Edit Article", edit_article_path(@article) %>
+</li>
+
+<li>
+	<%= link_to "Delete Article", article_path(@article), method: :delete, data: {confirm: "Really delete the article?"} %>
+</li>
+
+<li><%= link_to "All Tags", tags_path %></li>
