@@ -12,6 +12,7 @@
 Tags:
 <% @article.tags.each do |tag| %>
 	<%= link_to tag.name, tag_path(tag)%>
+	<%= link_to "Delete Tag", tag_path(tag), method: :delete, data: {confirm: "Delete Tag?"}%>
 <% end %>
 
 <%= render partial: 'comments/form' %>
@@ -25,12 +26,14 @@ Tags:
 	<%= link_to "<< Return to All Articles", articles_path %>
 </li>
 
-<li>
-	<%= link_to "Edit Article", edit_article_path(@article) %>
-</li>
+<% if logged_in? %>
+	<li>
+		<%= link_to "Edit Article", edit_article_path(@article) %>
+	</li>
 
-<li>
-	<%= link_to "Delete Article", article_path(@article), method: :delete, data: {confirm: "Really delete the article?"} %>
-</li>
+	<li>
+		<%= link_to "Delete Article", article_path(@article), method: :delete, data: {confirm: "Really delete the article?"} %>
+	</li>
+<% end %>
 
 <li><%= link_to "All Tags", tags_path %></li>
